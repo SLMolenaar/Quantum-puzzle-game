@@ -11,6 +11,8 @@ const directions = {
     ArrowRight: { x: 1, y: 0 }
 };
 
+let points = 0;
+
 export function movePlayers(key) {
     const dir = directions[key];
     if (!dir) return;
@@ -21,5 +23,13 @@ export function movePlayers(key) {
     const newB = { x: playerB.x + dirB.x, y: playerB.y + dirB.y };
 
     if (mazeA[newA.y]?.[newA.x] === 0) playerA = newA;
+    else setPoints(points-1);
     if (mazeB[newB.y]?.[newB.x] === 0) playerB = newB;
+    else  setPoints(points-1);
+}
+
+export function setPoints(value) {
+    points = value;
+    document.getElementById('points').textContent = points;
+    return points;
 }
