@@ -1,3 +1,5 @@
+import { mapSize } from './maze.js';
+
 export function drawMaze(maze, player, canvas, rotation = 0) {
     const ctx = canvas.getContext('2d');
     const size = 40;
@@ -25,6 +27,9 @@ export function drawMaze(maze, player, canvas, rotation = 0) {
 
     ctx.fillStyle = 'red';
     ctx.fillRect(player.x * size, player.y * size, size, size);
+
+    ctx.fillStyle = 'green';
+    ctx.fillRect((mapSize-2) * size, (mapSize-2) * size, size, size);
 
     ctx.restore();
 }
