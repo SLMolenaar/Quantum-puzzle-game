@@ -1,13 +1,13 @@
 import { mapSize } from './maze.js';
+import { boxSize } from './game.js';
 
 export function drawMaze(maze, player, canvas, rotation = 0) {
     const ctx = canvas.getContext('2d');
-    const size = 40;
     const width = maze[0].length;
     const height = maze.length;
 
-    canvas.width = width * size;
-    canvas.height = height * size;
+    canvas.width = width * boxSize;
+    canvas.height = height * boxSize;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -21,15 +21,15 @@ export function drawMaze(maze, player, canvas, rotation = 0) {
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             ctx.fillStyle = maze[y][x] === 1 ? '#333' : '#fff';
-            ctx.fillRect(x * size, y * size, size, size);
+            ctx.fillRect(x * boxSize, y * boxSize, boxSize, boxSize);
         }
     }
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(player.x * size, player.y * size, size, size);
+    ctx.fillRect(player.x * boxSize, player.y * boxSize, boxSize, boxSize);
 
     ctx.fillStyle = 'green';
-    ctx.fillRect((mapSize-2) * size, (mapSize-2) * size, size, size);
+    ctx.fillRect((mapSize-2) * boxSize, (mapSize-2) * boxSize, boxSize, boxSize);
 
     ctx.restore();
 }

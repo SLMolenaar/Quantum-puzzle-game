@@ -86,7 +86,7 @@ function generateRandomizedMaze(height, width) {
     return maze;
 }
 
-export let mapSize = 15;
+export let mapSize = 11;
 
 // Generate the 10x10 maze as requested
 export let mazeA = generateRandomizedMaze(mapSize, mapSize);
