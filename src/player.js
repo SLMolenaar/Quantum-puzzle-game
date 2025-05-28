@@ -29,7 +29,24 @@ export function movePlayers(key) {
     else  setPoints(points-1);
 
     if (playerA.x === mapSize-2 && playerA.y === mapSize-2 && playerB.x === mapSize-2 && playerB.y === mapSize-2) {
-        alert('You won!');
+        const victoryOverlay = document.getElementById('victory-overlay');
+        victoryOverlay.classList.remove('hidden');
+        setTimeout(() => victoryOverlay.classList.add('visible'), 10);
+
+        // Add click handler for the play again button
+        const playAgainBtn = document.getElementById('play-again');
+        const handlePlayAgain = () => {
+            // Reset game state
+            playerA = { x: 1, y: 1 };
+            playerB = { x: 1, y: 1 };
+            setPoints(0);
+            // Hide the overlay
+            victoryOverlay.classList.remove('visible');
+            setTimeout(() => victoryOverlay.classList.add('hidden'), 500); // Wait for fade out
+            // Remove the event listener to prevent memory leaks
+            playAgainBtn.removeEventListener('click', handlePlayAgain);
+        };
+        playAgainBtn.addEventListener('click', handlePlayAgain);
     }
 }
 
