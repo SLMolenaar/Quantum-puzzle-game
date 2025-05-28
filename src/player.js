@@ -1,5 +1,6 @@
 import { mazeA, mazeB, getMazeBRotation } from './maze.js';
 import { rotateDirection } from './utils.js';
+import { mapSize } from './maze.js';
 
 export let playerA = { x: 1, y: 1 };
 export let playerB = { x: 1, y: 1 };
@@ -26,6 +27,10 @@ export function movePlayers(key) {
     else setPoints(points-1);
     if (mazeB[newB.y]?.[newB.x] === 0) playerB = newB;
     else  setPoints(points-1);
+
+    if (playerA.x === mapSize-2 && playerA.y === mapSize-2 && playerB.x === mapSize-2 && playerB.y === mapSize-2) {
+        alert('You won!');
+    }
 }
 
 export function setPoints(value) {

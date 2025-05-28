@@ -92,20 +92,6 @@ export let mapSize = 11;
 export let mazeA = generateRandomizedMaze(mapSize, mapSize);
 export let mazeB = generateRandomizedMaze(mapSize, mapSize);
 
-// --- Example of how to use and print (optional, for testing) ---
-// function printMaze(maze) {
-//   maze.forEach(row => console.log(row.join(' ')));
-// }
-
-// console.log("Generated Maze (mazeA):");
-// printMaze(mazeA);
-
-// // You can also generate mazes of other sizes:
-// let mazeB = generateRandomizedMaze(15, 21); // Example: 15 rows, 21 columns
-// console.log("\nGenerated Maze (15x21):");
-// printMaze(mazeB);
-
-
 let mazeBRotation = 0;
 
 export function rotateMazeBData() {
