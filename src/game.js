@@ -9,9 +9,8 @@ const canvasB = document.getElementById('mazeB');
 
 // Initialize level display
 const levelElement = document.getElementById('level');
-if (levelElement) {
-    levelElement.textContent = `Level ${getCurrentLevel()}`;
-}
+levelElement.textContent = `Level ${getCurrentLevel()}`;
+
 
 document.addEventListener('keydown', (e) => {
     if (e.key === ' ') {

@@ -17,8 +17,6 @@ const directions = {
     ArrowRight: { x: 1, y: 0 }
 };
 
-let points = 0;
-
 export function movePlayers(key) {
     const dir = directions[key];
     if (!dir) return;
@@ -28,10 +26,14 @@ export function movePlayers(key) {
     const dirB = rotateDirection(dir, rot);
     const newB = { x: playerB.x + dirB.x, y: playerB.y + dirB.y };
 
-    if (mazeA[newA.y]?.[newA.x] === 0) playerA = newA;
-    else setPoints(points-1);
-    if (mazeB[newB.y]?.[newB.x] === 0) playerB = newB;
-    else  setPoints(points-1);
+    // Only move both players if both target positions are valid (not walls)
+    const canMoveA = mazeA[newA.y]?.[newA.x] === 0;
+    const canMoveB = mazeB[newB.y]?.[newB.x] === 0;
+    
+    if (canMoveA && canMoveB) {
+        playerA = newA;
+        playerB = newB;
+    }
 
     // Get target positions for both mazes
     const targetA = getTargetPosition(mazeA);
@@ -45,7 +47,7 @@ export function movePlayers(key) {
         const newLevel = nextLevel();
         
         // Check if we've reached the maximum level (level 3 for testing, can be increased later)
-        if (newLevel <= 15) {
+        if (newLevel <= 10) { // determine the maximum level
             // Reset mazes for the new level
             resetMazes();
             
@@ -83,8 +85,6 @@ export function movePlayers(key) {
                         // Reset game state
                         playerA = { x: 1, y: 1 };
                         playerB = { x: 1, y: 1 };
-                        setPoints(0);
-                        
                         // Reset level system
                         resetLevels();
                         
@@ -113,8 +113,4 @@ export function movePlayers(key) {
     }
 }
 
-export function setPoints(value) {
-    points = value;
-    document.getElementById('points').textContent = points;
-    return points;
-}
+
