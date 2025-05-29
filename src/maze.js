@@ -1,3 +1,5 @@
+import { getMapSize } from './level.js';
+
 // Helper function: Fisher-Yates Shuffle to randomize array elements
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -44,8 +46,10 @@ function generateRandomizedMaze(height, width) {
         [0, 2]   // Right
     ];
 
+
     while (stack.length > 0) {
         let [r, c] = stack[stack.length - 1]; // Get current cell (peek)
+
 
         let unvisitedNeighbors = [];
 
@@ -68,6 +72,7 @@ function generateRandomizedMaze(height, width) {
             }
         }
 
+
         if (unvisitedNeighbors.length > 0) {
             // Choose a random unvisited neighbor
             const chosenNeighbor = unvisitedNeighbors[Math.floor(Math.random() * unvisitedNeighbors.length)];
@@ -83,12 +88,14 @@ function generateRandomizedMaze(height, width) {
         }
     }
 
+
     return maze;
 }
 
-export let mapSize = 11;
+// Initialize map size from level system
+export let mapSize = getMapSize();
 
-// Generate the 10x10 maze as requested
+// Generate the initial mazes
 export let mazeA = generateRandomizedMaze(mapSize, mapSize);
 export let mazeB = generateRandomizedMaze(mapSize, mapSize);
 
@@ -100,4 +107,13 @@ export function rotateMazeBData() {
 
 export function getMazeBRotation() {
     return mazeBRotation;
+}
+
+// Function to reset mazes for a new level
+export function resetMazes() {
+    mapSize = getMapSize();
+    mazeA = generateRandomizedMaze(mapSize, mapSize);
+    mazeB = generateRandomizedMaze(mapSize, mapSize);
+    mazeBRotation = 0;
+    return { mazeA, mazeB };
 }

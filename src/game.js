@@ -1,22 +1,31 @@
-import { mazeA, mazeB, rotateMazeBData, getMazeBRotation } from './maze.js';
+import { mazeA, mazeB, rotateMazeBData, getMazeBRotation, resetMazes } from './maze.js';
 import { playerA, playerB, movePlayers } from './player.js';
 import { drawMaze } from './utils.js';
+import { getCurrentLevel, getMapSize } from './level.js';
+import { BOX_SIZE } from './config.js';
 
 const canvasA = document.getElementById('mazeA');
 const canvasB = document.getElementById('mazeB');
-export const boxSize = 40; // Zorg dat dit overeenkomt met de grootte in utils.js
+
+// Initialize level display
+const levelElement = document.getElementById('level');
+if (levelElement) {
+    levelElement.textContent = `Level ${getCurrentLevel()}`;
+}
 
 document.addEventListener('keydown', (e) => {
     movePlayers(e.key);
     render();
 });
 
+// Make rotateMazeB globally available
 window.rotateMazeB = () => {
     rotateMazeBData();
     render();
 };
 
-function render() {
+// Export the render function so it can be used in other modules
+export function render() {
     // Teken Maze A
     const ctxA = canvasA.getContext('2d');
     drawMaze(mazeA, playerA, canvasA);
@@ -26,19 +35,8 @@ function render() {
     const rotation = getMazeBRotation();
     drawMaze(mazeB, playerB, canvasB, rotation);
 
-    // Teken de spelers
-    ctxA.fillStyle = 'red';
-    ctxA.fillRect(playerA.x * boxSize, playerA.y * boxSize, boxSize, boxSize);
-
-    ctxB.save();
-    if (rotation !== 0) {
-        ctxB.translate(canvasB.width / 2, canvasB.height / 2);
-        ctxB.rotate((rotation * Math.PI) / 180);
-        ctxB.translate(-canvasB.width / 2, -canvasB.height / 2);
-    }
-    ctxB.fillStyle = 'blue';
-    ctxB.fillRect(playerB.x * boxSize, playerB.y * boxSize, boxSize, boxSize);
-    ctxB.restore();
+    // Draw players (already handled in drawMaze)
+    // The drawMaze function now handles drawing both the maze and the player
 }
 
 render();
