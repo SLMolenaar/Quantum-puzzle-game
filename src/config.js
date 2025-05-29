@@ -3,6 +3,7 @@ export const BOX_SIZE = 40; // Size of each cell in pixels
 export const MAZE_COLORS = {
     WALL: '#333',
     PATH: '#fff',
-    PLAYER: 'red',
+    PLAYER_A: 'red',
+    PLAYER_B: 'blue',
     TARGET: 'green'
 };
