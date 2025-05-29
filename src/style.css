@@ -97,3 +97,14 @@ canvas {
 .hidden {
     display: none !important;
 }
+
+#rotate-instruction {
+    margin: 15px 0;
+    font-size: 1.2rem;
+    color: #2c3e50;
+    font-weight: 500;
+    padding: 8px 15px;
+    background-color: #ecf0f1;
+    border-radius: 20px;
+    display: inline-block;
+}

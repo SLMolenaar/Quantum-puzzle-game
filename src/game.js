@@ -14,15 +14,14 @@ if (levelElement) {
 }
 
 document.addEventListener('keydown', (e) => {
-    movePlayers(e.key);
+    if (e.key === ' ') {
+        rotateMazeBData();
+    } else {
+        movePlayers(e.key);
+    }
     render();
 });
 
-// Make rotateMazeB globally available
-window.rotateMazeB = () => {
-    rotateMazeBData();
-    render();
-};
 
 // Export the render function so it can be used in other modules
 export function render() {
