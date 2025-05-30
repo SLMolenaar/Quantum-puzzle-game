@@ -1,5 +1,6 @@
 import { BOX_SIZE, MAZE_COLORS } from './config.js';
 import { getTargetPosition } from './target.js';
+import { drawItems, getItems } from './items.js';
 
 export function drawMaze(maze, player, canvas, rotation = 0) {
     const ctx = canvas.getContext('2d');
@@ -34,6 +35,10 @@ export function drawMaze(maze, player, canvas, rotation = 0) {
     const targetPos = getTargetPosition(maze);
     ctx.fillStyle = MAZE_COLORS.TARGET;
     ctx.fillRect(targetPos.x * BOX_SIZE, targetPos.y * BOX_SIZE, BOX_SIZE, BOX_SIZE);
+    
+    // Draw items (keys and doors)
+    const items = getItems(canvas.id === 'mazeA');
+    drawItems(ctx, items, BOX_SIZE);
 
     ctx.restore();
 }

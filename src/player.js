@@ -3,6 +3,7 @@ import { rotateDirection } from './utils.js';
 import { getMapSize, nextLevel, getCurrentLevel, resetLevels } from './level.js';
 import { render } from './game.js';
 import { getTargetPosition } from './target.js';
+import { checkPlayerItems, canPassDoor, ITEM_TYPES } from './items.js';
 
 // Initialize map size from level system
 let mapSize = getMapSize();
@@ -26,11 +27,16 @@ export function movePlayers(key) {
     const dirB = rotateDirection(dir, rot);
     const newB = { x: playerB.x + dirB.x, y: playerB.y + dirB.y };
 
-    // Only move both players if both target positions are valid (not walls)
-    const canMoveA = mazeA[newA.y]?.[newA.x] === 0;
-    const canMoveB = mazeB[newB.y]?.[newB.x] === 0;
+    // Check if both target positions are valid (not walls and can pass doors)
+    const canMoveA = mazeA[newA.y]?.[newA.x] === 0 && canPassDoor(newA.x, newA.y, true);
+    const canMoveB = mazeB[newB.y]?.[newB.x] === 0 && canPassDoor(newB.x, newB.y, false);
     
     if (canMoveA && canMoveB) {
+        // Check for key collection before moving
+        checkPlayerItems(newA.x, newA.y, true);
+        checkPlayerItems(newB.x, newB.y, false);
+        
+        // Update player positions
         playerA = newA;
         playerB = newB;
     }

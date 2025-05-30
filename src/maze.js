@@ -1,4 +1,5 @@
-import { getMapSize } from './level.js';
+import { getMapSize, getCurrentLevel } from './level.js';
+import { resetItems } from './items.js';
 
 // Helper function: Fisher-Yates Shuffle to randomize array elements
 function shuffleArray(array) {
@@ -115,5 +116,10 @@ export function resetMazes() {
     mazeA = generateRandomizedMaze(mapSize, mapSize);
     mazeB = generateRandomizedMaze(mapSize, mapSize);
     mazeBRotation = 0;
+    
+    // Reset items for both mazes
+    resetItems(mazeA, true);
+    resetItems(mazeB, false);
+    
     return { mazeA, mazeB };
 }
