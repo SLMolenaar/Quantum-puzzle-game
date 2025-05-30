@@ -11,7 +11,7 @@ export function getCurrentLevel() {
 
 export function nextLevel() {
     currentLevel++;
-    mapSize = (7 + (currentLevel - 1) * 3) | 1;
+    mapSize = (7 + (currentLevel - 1) * 5) | 1;
 
     // Update level display
     document.getElementById('level').textContent = `Level ${currentLevel}`;

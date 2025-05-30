@@ -22,7 +22,7 @@ export function resetItems(maze, isMazeA) {
     const currentLevel = getCurrentLevel();
     
     // Only add keys and doors for level 8 and above
-    if (currentLevel >= 8) {
+    if (currentLevel >= 5) {
         // First find a key position that's reachable from start without going through a door
         const keyPos = findReachableSpot(maze);
         if (!keyPos) {
