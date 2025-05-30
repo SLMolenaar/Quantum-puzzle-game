@@ -400,19 +400,7 @@ canvas {
     border: 3px solid rgba(255, 255, 255, 0.1);
 }
 
-#level::before {
-    content: 'Level';
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+
 
 
 button:focus, .key:focus {
