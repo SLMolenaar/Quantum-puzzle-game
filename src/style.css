@@ -30,7 +30,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Particle Background */
 #particles-js {
     position: fixed;
     width: 100%;
@@ -60,7 +59,6 @@ body {
     padding: 1rem 0.8rem;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
     position: relative;
     z-index: 10;
     overflow-y: auto;
@@ -112,13 +110,7 @@ body {
     border-radius: 8px;
     margin-bottom: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(5px);
-}
-
-.instructions:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .instructions h3 {
@@ -178,13 +170,10 @@ body {
     background: rgba(255, 255, 255, 0.05);
     padding: 0.5rem 0.8rem;
     border-radius: 8px;
-    transition: all 0.2s ease;
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.control-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
+.control-item {
 }
 
 .key {
@@ -201,13 +190,8 @@ body {
     justify-content: center;
     font-weight: 600;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
 }
 
-.control-item:hover .key {
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
 
 #game {
     display: flex;
@@ -222,13 +206,7 @@ canvas {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
     backdrop-filter: blur(5px);
-}
-
-canvas:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 #victory-overlay {
@@ -376,7 +354,6 @@ canvas:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     body {
         flex-direction: column;
@@ -401,7 +378,6 @@ canvas:hover {
     }
 }
 
-/* Level Display */
 .level-info {
     margin-top: 2rem;
     text-align: center;
@@ -429,6 +405,7 @@ canvas:hover {
     position: absolute;
     top: -30px;
     left: 50%;
+    left: 50%;
     transform: translateX(-50%);
     font-size: 0.9rem;
     font-weight: 500;
@@ -437,45 +414,12 @@ canvas:hover {
     letter-spacing: 1px;
 }
 
-/* Animations */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-}
-
-/* Add subtle animations to interactive elements */
-.instructions, .controls, canvas {
-    animation: float 6s ease-in-out infinite;
-}
-
-.instructions {
-    animation-delay: 0.2s;
-}
-
-.controls {
-    animation-delay: 0.4s;
-}
-
-canvas:first-child {
-    animation-delay: 0.1s;
-}
-
-canvas:last-child {
-    animation-delay: 0.3s;
-}
-
-/* Focus states for accessibility */
 button:focus, .key:focus {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -491,6 +435,3 @@ button:focus, .key:focus {
     border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary);
-}
