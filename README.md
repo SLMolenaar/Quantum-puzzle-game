@@ -2,11 +2,13 @@ Hey Pascal,
 
 Ik ben een klein beetje verder gegaan met het spel. Ik heb levels toegevoegd. Met elk level dat je speelt groeit de map met 3 blokken op de x en y as.
 Ook uitleg aan de zijkant van de pagina toegevoegd. 
+Ik heb deuren en sleutels toegevoegd in level 5 en hoger.
+Ik heb aan ai gevraagd om de frontend moderner te maken, dus het ziet er fancy uit nu.
+Ik heb de game op netlify geupload, en nu is ie beschikbaar op het internet.
 
-Ik heb ook een paar ideetjes; 
+Nog toevoegen: 
+Een reset level knop.
+Een stappenteller + minimaal aantal stappen laten zien per level.
 
-- In hogere levels deuren/blokkades die je met een key kan openen. Die key zou ergens in het doolhof "verstopt" zitten. Op andere plekken voor beiden doolhoven.
-      (dit zouden we anders moeten visualiseren dan blokjes. Anders is het niet te begrijpen voor spelers.)
 
-
-  https://quantum-maze-game.netlify.app
+https://quantum-maze-game.netlify.app
