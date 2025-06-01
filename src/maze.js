@@ -1,7 +1,8 @@
 import { getMapSize, getCurrentLevel } from './level.js';
 import { resetItems } from './items.js';
 
-// Helper function: Fisher-Yates Shuffle to randomize array elements
+// Fisher-Yates Shuffle to randomize array elements (O(n) time complexity)
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -20,18 +21,13 @@ function generateRandomizedMaze(height, width) {
         throw new Error("Maze dimensions must be at least 3x3 to have inner space.");
     }
 
-    // Initialize maze with all walls (1)
-    // 0 represents a path, 1 represents a wall
+    // Initialize the maze with all walls
     let maze = Array.from({ length: height }, () => Array(width).fill(1));
 
     // Stack for DFS
     let stack = [];
 
     // Choose a random starting cell for carving.
-    // It must be an "odd" cell to ensure walls can exist between cells.
-    // We also want to stay away from the outermost border initially.
-    // Valid start rows: 1, 3, 5, ... height-2
-    // Valid start cols: 1, 3, 5, ... width-2
     const startR = Math.floor(Math.random() * Math.floor((height - 1) / 2)) * 2 + 1;
     const startC = Math.floor(Math.random() * Math.floor((width - 1) / 2)) * 2 + 1;
 
@@ -110,7 +106,7 @@ export function getMazeBRotation() {
     return mazeBRotation;
 }
 
-// Function to reset mazes for a new level
+// Reset mazes for a new level
 export function resetMazes() {
     mapSize = getMapSize();
     mazeA = generateRandomizedMaze(mapSize, mapSize);

@@ -26,12 +26,12 @@ export function drawMaze(maze, player, canvas, rotation = 0) {
         }
     }
 
-    // Draw player with color based on which maze is being drawn
+    // Draw player
     const playerColor = canvas.id === 'mazeA' ? MAZE_COLORS.PLAYER_A : MAZE_COLORS.PLAYER_B;
     ctx.fillStyle = playerColor;
     ctx.fillRect(player.x * BOX_SIZE, player.y * BOX_SIZE, BOX_SIZE, BOX_SIZE);
 
-    // Draw target using the shared target position logic
+    // Draw target
     const targetPos = getTargetPosition(maze);
     ctx.fillStyle = MAZE_COLORS.TARGET;
     ctx.fillRect(targetPos.x * BOX_SIZE, targetPos.y * BOX_SIZE, BOX_SIZE, BOX_SIZE);

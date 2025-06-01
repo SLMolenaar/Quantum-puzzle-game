@@ -12,8 +12,8 @@ let itemsB = [];
 
 // Colors for items
 export const ITEM_COLORS = {
-    KEY: '#FFD700',  // Gold
-    DOOR: '#8B4513'  // Brown
+    KEY: '#FFD700',
+    DOOR: '#8B4513'
 };
 
 // Reset items for a new level
@@ -21,8 +21,8 @@ export function resetItems(maze, isMazeA) {
     const items = [];
     const currentLevel = getCurrentLevel();
     
-    // Only add keys and doors for level 8 and above
-    if (currentLevel >= 5) {
+    // Keys & doors voor lvl 5+
+    if (currentLevel >= 7) {
         // First find a key position that's reachable from start without going through a door
         const keyPos = findReachableSpot(maze);
         if (!keyPos) {
