@@ -1,4 +1,4 @@
-let currentLevel = 1;
+let currentLevel = 2;
 let mapSize = 7; // Base size for level 1
 
 export function getMapSize() {
@@ -15,6 +15,29 @@ export function nextLevel() {
 
     // Update level display
     document.getElementById('level').textContent = `Level ${currentLevel}`;
+    
+    // Show tutorial popup when reaching level 3
+    if (currentLevel === 3) {
+        const tutorialPopup = document.getElementById('tutorial-popup');
+        const closeTutorial = document.getElementById('close-tutorial');
+        
+        // Show the popup after a short delay to let the level load
+        setTimeout(() => {
+            tutorialPopup.classList.add('visible');
+            tutorialPopup.classList.remove('hidden');
+        }, 500);
+        
+        // Close button handler
+        const closeHandler = () => {
+            tutorialPopup.classList.remove('visible');
+            setTimeout(() => {
+                tutorialPopup.classList.add('hidden');
+            }, 500);
+            closeTutorial.removeEventListener('click', closeHandler);
+        };
+        
+        closeTutorial.addEventListener('click', closeHandler);
+    }
     
     return currentLevel;
 }
