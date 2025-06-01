@@ -12,7 +12,7 @@ let itemsB = [];
 
 // Colors for items
 export const ITEM_COLORS = {
-    KEY: '#FFD700',
+    KEY: '#debe00',
     DOOR: '#8B4513'
 };
 
