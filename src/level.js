@@ -1,4 +1,4 @@
-let currentLevel = 2;
+let currentLevel = 1;
 let mapSize = 7; // Base size for level 1
 
 export function getMapSize() {
