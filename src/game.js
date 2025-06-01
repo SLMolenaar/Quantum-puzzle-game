@@ -1,8 +1,7 @@
-import { mazeA, mazeB, rotateMazeBData, getMazeBRotation, resetMazes } from './maze.js';
+import { mazeA, mazeB, rotateMazeBData, getMazeBRotation } from './maze.js';
 import { playerA, playerB, movePlayers } from './player.js';
 import { drawMaze } from './utils.js';
-import { getCurrentLevel, getMapSize } from './level.js';
-import { BOX_SIZE } from './config.js';
+import { getCurrentLevel } from './level.js';
 
 const canvasA = document.getElementById('mazeA');
 const canvasB = document.getElementById('mazeB');
@@ -23,12 +22,8 @@ document.addEventListener('keydown', (e) => {
 
 
 export function render() {
-    // Draw Maze A
-    const ctxA = canvasA.getContext('2d');
     drawMaze(mazeA, playerA, canvasA);
 
-    // Draw maze B with rotation
-    const ctxB = canvasB.getContext('2d');
     const rotation = getMazeBRotation();
     drawMaze(mazeB, playerB, canvasB, rotation);
 }

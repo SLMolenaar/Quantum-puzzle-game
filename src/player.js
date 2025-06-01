@@ -1,9 +1,9 @@
 import { mazeA, mazeB, getMazeBRotation, resetMazes } from './maze.js';
 import { rotateDirection } from './utils.js';
-import { getMapSize, nextLevel, getCurrentLevel, resetLevels } from './level.js';
+import { getMapSize, nextLevel, resetLevels } from './level.js';
 import { render } from './game.js';
 import { getTargetPosition } from './target.js';
-import { checkPlayerItems, canPassDoor, ITEM_TYPES } from './items.js';
+import { checkPlayerItems, canPassDoor } from './items.js';
 
 let mapSize = getMapSize();
 
@@ -50,7 +50,7 @@ export function movePlayers(key) {
         const newLevel = nextLevel();
 
         // New level
-        if (newLevel <= 10) {
+        if (newLevel <= 5) {
             resetMazes();
 
             playerA = { x: 1, y: 1 };
