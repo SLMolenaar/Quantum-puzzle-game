@@ -22,7 +22,7 @@ export function resetItems(maze, isMazeA) {
     const currentLevel = getCurrentLevel();
     
     // Keys & doors voor lvl 5+
-    if (currentLevel >= 7) {
+    if (currentLevel >= 4) {
         // First find a key position that's reachable from start without going through a door
         const keyPos = findReachableSpot(maze);
         if (!keyPos) {
