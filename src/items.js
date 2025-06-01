@@ -23,30 +23,30 @@ export function resetItems(maze, isMazeA) {
     
     // Keys & doors for level 3+
     if (currentLevel >= 3) {
-        let keyPos, doorPos;
-        let attempts = 0;
-        const maxAttempts = 10;
+        // First find the path from start to target
+        const targetX = maze[0].length - 2;
+        const targetY = maze.length - 2;
+        const pathToTarget = findShortestPath(maze, 1, 1, targetX, targetY);
         
-        // Try to find valid positions for both key and door
-        while (attempts < maxAttempts) {
-            // First find a key position that's reachable from start without going through a door
-            keyPos = findReachableSpot(maze);
-            if (!keyPos) {
-                attempts++;
-                continue;
-            }
-            
-            // Then find a door position that's on the path to target but not blocking the key
-            doorPos = findDoorPosition(maze, keyPos);
-            if (doorPos) {
-                break; // Found valid positions
-            }
-            attempts++;
+        if (!pathToTarget || pathToTarget.length === 0) {
+            console.warn("No valid path to target found");
+            return [];
         }
         
-        // If we couldn't find valid positions after max attempts, log a warning but continue
-        if (!keyPos || !doorPos) {
-            console.warn("Could not find valid positions for key and door after", maxAttempts, "attempts");
+        // Convert path to Set for quick lookup
+        const pathSet = new Set(pathToTarget.map(p => `${p.x},${p.y}`));
+        
+        // Find a key position that's NOT on the path to target
+        const keyPos = findReachableSpot(maze, (x, y) => !pathSet.has(`${x},${y}`));
+        if (!keyPos) {
+            console.warn("Could not find valid position for key");
+            return [];
+        }
+        
+        // Find a door position that IS on the path to target
+        const doorPos = findDoorPosition(maze, pathToTarget, keyPos);
+        if (!doorPos) {
+            console.warn("Could not find valid position for door");
             return [];
         }
         
@@ -117,8 +117,8 @@ function findShortestPath(maze, startX, startY, targetX, targetY, excludePositio
     return [];
 }
 
-// Find a reachable spot from start (BFS)
-function findReachableSpot(maze) {
+// Find a reachable spot from start (BFS) with optional filter function
+function findReachableSpot(maze, filterFn = null) {
     const targetX = maze[0].length - 2;
     const targetY = maze.length - 2;
     const visited = new Set();
@@ -137,7 +137,10 @@ function findReachableSpot(maze) {
         const distToTarget = Math.abs(x - targetX) + Math.abs(y - targetY);
         
         if (distToStart > 2 && distToTarget > 2) {
-            reachableSpots.push({x, y});
+            // Apply filter function if provided
+            if (!filterFn || filterFn(x, y)) {
+                reachableSpots.push({x, y});
+            }
         }
         
         // Explore neighbors
@@ -162,41 +165,72 @@ function findReachableSpot(maze) {
 }
 
 // Find a door position that's on the path to target but not blocking the key
-function findDoorPosition(maze, keyPos) {
+function findDoorPosition(maze, pathToTarget, keyPos) {
+    if (!pathToTarget || pathToTarget.length === 0) return null;
+    
     const targetX = maze[0].length - 2;
     const targetY = maze.length - 2;
+    const potentialDoors = [];
     
-    // First find the shortest path from key to target
-    const pathFromKey = findShortestPath(maze, keyPos.x, keyPos.y, targetX, targetY);
-    if (pathFromKey.length === 0) return null;
+    // First, find the path from start to key that doesn't go through the door
+    const pathToKey = findShortestPath(maze, 1, 1, keyPos.x, keyPos.y, []);
+    if (!pathToKey || pathToKey.length === 0) {
+        console.warn("No path to key found");
+        return null;
+    }
     
-    // Then find the shortest path from start to target that doesn't go through the key
-    const pathFromStart = findShortestPath(
-        maze, 
-        1, 
-        1, 
-        targetX, 
-        targetY,
-        [{x: keyPos.x, y: keyPos.y}]
-    );
+    // Create a set of positions that are on the path to key
+    const pathToKeySet = new Set(pathToKey.map(p => `${p.x},${p.y}`));
     
-    if (pathFromStart.length === 0) return null;
-    
-    // Find intersection points between the two paths
-    const pathFromKeySet = new Set(pathFromKey.map(p => `${p.x},${p.y}`));
-    const intersectionPoints = pathFromStart.filter(pos => {
-        return pathFromKeySet.has(`${pos.x},${pos.y}`);
-    });
-    
-    // Filter out points too close to start/target
-    const validDoors = intersectionPoints.filter(pos => {
+    // Find valid door positions on the path to target
+    for (const pos of pathToTarget) {
+        // Skip positions that are on the path to key
+        if (pathToKeySet.has(`${pos.x},${pos.y}`)) {
+            continue;
+        }
+        
+        // Skip positions too close to start, target, or key
         const distToStart = Math.abs(pos.x - 1) + Math.abs(pos.y - 1);
         const distToTarget = Math.abs(pos.x - targetX) + Math.abs(pos.y - targetY);
-        return distToStart > 2 && distToTarget > 2;
-    });
+        const distToKey = Math.abs(pos.x - keyPos.x) + Math.abs(pos.y - keyPos.y);
+        
+        // Only consider positions that are at least 2 steps from start, target, and key
+        if (distToStart >= 2 && distToTarget >= 2 && distToKey >= 2) {
+            potentialDoors.push(pos);
+        }
+    }
     
-    return validDoors.length > 0 
-        ? validDoors[Math.floor(Math.random() * validDoors.length)]
+    // If no valid doors found, try with relaxed constraints but still ensure key is reachable
+    if (potentialDoors.length === 0) {
+        for (const pos of pathToTarget) {
+            // Still skip positions on the path to key
+            if (pathToKeySet.has(`${pos.x},${pos.y}`)) {
+                continue;
+            }
+            
+            const distToStart = Math.abs(pos.x - 1) + Math.abs(pos.y - 1);
+            const distToTarget = Math.abs(pos.x - targetX) + Math.abs(pos.y - targetY);
+            
+            if (distToStart >= 1 && distToTarget >= 1) {
+                potentialDoors.push(pos);
+            }
+        }
+    }
+    
+    // If we still don't have any valid doors, try to find any position that doesn't block the key
+    if (potentialDoors.length === 0) {
+        for (const pos of pathToTarget) {
+            // Skip positions on the path to key
+            if (pathToKeySet.has(`${pos.x},${pos.y}`)) {
+                continue;
+            }
+            potentialDoors.push(pos);
+        }
+    }
+    
+    // Return a random valid door position, or null if none found
+    return potentialDoors.length > 0 
+        ? potentialDoors[Math.floor(Math.random() * potentialDoors.length)]
         : null;
 }
 
