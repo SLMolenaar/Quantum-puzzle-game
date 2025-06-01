@@ -21,19 +21,32 @@ export function resetItems(maze, isMazeA) {
     const items = [];
     const currentLevel = getCurrentLevel();
     
-    // Keys & doors voor lvl 3+
+    // Keys & doors for level 3+
     if (currentLevel >= 3) {
-        // First find a key position that's reachable from start without going through a door
-        const keyPos = findReachableSpot(maze);
-        if (!keyPos) {
-            console.warn("Could not find valid position for key.");
-            return [];
+        let keyPos, doorPos;
+        let attempts = 0;
+        const maxAttempts = 10;
+        
+        // Try to find valid positions for both key and door
+        while (attempts < maxAttempts) {
+            // First find a key position that's reachable from start without going through a door
+            keyPos = findReachableSpot(maze);
+            if (!keyPos) {
+                attempts++;
+                continue;
+            }
+            
+            // Then find a door position that's on the path to target but not blocking the key
+            doorPos = findDoorPosition(maze, keyPos);
+            if (doorPos) {
+                break; // Found valid positions
+            }
+            attempts++;
         }
         
-        // Then find a door position that's on the path to target but not blocking the key
-        const doorPos = findDoorPosition(maze, keyPos);
-        if (!doorPos) {
-            console.warn("Could not find valid position for door.");
+        // If we couldn't find valid positions after max attempts, log a warning but continue
+        if (!keyPos || !doorPos) {
+            console.warn("Could not find valid positions for key and door after", maxAttempts, "attempts");
             return [];
         }
         
