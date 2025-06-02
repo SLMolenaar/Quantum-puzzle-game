@@ -2,8 +2,6 @@
 
 A challenging puzzle game where you control two quantum-entangled players simultaneously through interconnected mazes. Navigate through increasingly complex levels, solve puzzles, and master the art of quantum movement!
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/your-site-id/deploy-status)](https://quantum-maze-game.netlify.app)
-
 ## 🌟 Features
 
 - **Quantum Entanglement Mechanics**: Control two players simultaneously in separate but connected mazes
