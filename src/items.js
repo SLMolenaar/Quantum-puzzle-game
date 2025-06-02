@@ -1,29 +1,25 @@
 import { getCurrentLevel } from './level.js';
 
-// Constants for item types
 export const ITEM_TYPES = {
     KEY: 'key',
     DOOR: 'door'
 };
 
-// Store items for each maze
 let itemsA = [];
 let itemsB = [];
 
-// Colors for items
 export const ITEM_COLORS = {
     KEY: '#debe00',
     DOOR: '#8B4513'
 };
 
-// Reset items for a new level
 export function resetItems(maze, isMazeA) {
     const items = [];
     const currentLevel = getCurrentLevel();
     
     // Keys & doors for level 3+
     if (currentLevel >= 3) {
-        // First find the path from start to target
+        // Find the path from start to target
         const targetX = maze[0].length - 2;
         const targetY = maze.length - 2;
         const pathToTarget = findShortestPath(maze, 1, 1, targetX, targetY);
@@ -76,7 +72,7 @@ export function resetItems(maze, isMazeA) {
     return items;
 }
 
-// Find the shortest path from start to target using BFS with optional position exclusion
+// BFS algorithm to find shortest path
 function findShortestPath(maze, startX, startY, targetX, targetY, excludePositions = []) {
     const queue = [{ x: startX, y: startY, path: [{x: startX, y: startY}] }];
     const visited = new Set([`${startX},${startY}`]);
