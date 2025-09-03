@@ -2,22 +2,20 @@
 
 A challenging puzzle game where you control two quantum-entangled players simultaneously through interconnected mazes. Navigate through increasingly complex levels, solve puzzles, and master the art of quantum movement!
 
-## 🌟 Features
+## Features
 
-- **Quantum Entanglement Mechanics**: Control two players simultaneously in separate but connected mazes
-- **Progressive Difficulty**: Mazes grow larger with each level (3x3 blocks per level)
-- **Puzzle Elements**:
+- Quantum Entanglement Mechanics: Control two players simultaneously in separate but connected mazes
+- Progressive Difficulty: Mazes grow larger with each level (3x3 blocks per level)
+- Puzzle Elements:
   - Keys & Doors (Level 3+)
   - Rotating maze mechanics
   - Increasingly complex level design
-- **Modern UI**: Clean, responsive interface with intuitive controls
-- **Level Progression**: Automatic saving of progress
 
-## 🎮 How to Play
+## How to Play
 
 ### Controls
-- **Arrow Keys**: Move both players simultaneously
-- **Space**: Rotate the right maze 90 degrees
+- Arrow Keys: Move both players simultaneously
+- Space: Rotate the right maze 90 degrees
 
 ### Game Rules
 1. Guide both players (red and blue) to their respective targets
@@ -25,7 +23,7 @@ A challenging puzzle game where you control two quantum-entangled players simult
 3. Collect keys to unlock doors (Level 3+)
 4. Complete each level to progress to a larger, more challenging maze
 
-## 🚀 Live Demo
+## Live Demo
 
 Play the game online: [Quantum Maze Puzzle](https://quantum-maze-game.netlify.app)
 
@@ -41,7 +39,7 @@ Play the game online: [Quantum Maze Puzzle](https://quantum-maze-game.netlify.ap
    ```
 3. Open `src/index.html` in your preferred web browser
 
-## 🧠 Technical Details
+## Technical Details
 
 ### Built With
 - Vanilla JavaScript (ES6+)
@@ -49,12 +47,12 @@ Play the game online: [Quantum Maze Puzzle](https://quantum-maze-game.netlify.ap
 - CSS3 (with modern features like CSS Variables and Flexbox)
 
 ### Key Algorithms
-- **Maze Generation**: Recursive Backtracking
-- **Pathfinding**: Breadth-First Search (BFS)
-- **Collision Detection**: Grid-based system
-- **State Management**: Custom implementation
+- Maze Generation: Recursive Backtracking
+- Pathfinding: Breadth-First Search (BFS)
+- Collision Detection: Grid-based system
+- State Management: Custom implementation
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 src/
@@ -67,13 +65,3 @@ src/
 ├── level.js          # Level management
 └── utils.js          # Utility functions
 ```
-
-## 🔧 Future Improvements
-
-- [ ] Add a level reset button
-- [ ] Implement step counter and optimal move counter
-- [ ] Add sound effects and background music
-
----
-
-🎮 Happy Puzzling! 🧩
